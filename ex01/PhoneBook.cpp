@@ -8,7 +8,7 @@ int	main(void)
 	system("clear");
 	while (true)
 	{
-		command = take_input(YELLOW "Please enter a command (ADD, SEARCH, EXIT): " RESET);
+		command = getline(YELLOW "Please enter a command (ADD, SEARCH, EXIT): " RESET);
 		system("clear");
 		if (str_tolower(command) == "add")
 			phoneBook.addContact();

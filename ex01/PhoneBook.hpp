@@ -57,7 +57,7 @@ public:
 };
 
 // Utility functions
-std::string	take_input(std::string prompt);
+std::string	getline(std::string prompt);
 std::string	str_tolower(std::string str);
 int			take_index(void);
 void		press_enter(void);

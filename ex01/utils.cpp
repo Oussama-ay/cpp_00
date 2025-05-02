@@ -7,7 +7,7 @@ std::string	str_tolower(std::string str)
 	return (str);
 }
 
-std::string	take_input(std::string prompt)
+std::string	getline(std::string prompt)
 {
 	std::string	input;
 
@@ -38,7 +38,7 @@ int	take_index(void)
 void	press_enter(void)
 {
 	std::cout << "Press Enter to continue...";
-	take_input("");
+	getline("");
 	std::cout << std::endl;
 }
 

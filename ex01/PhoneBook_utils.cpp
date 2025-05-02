@@ -4,11 +4,11 @@
 
 void	PhoneBook::addContact(void)
 {
-	contacts[index].setFirstName(take_input("Enter first name: "));
-	contacts[index].setLastName(take_input("Enter last name: "));
-	contacts[index].setNickname(take_input("Enter nickname: "));
-	contacts[index].setPhoneNumber(take_input("Enter phone number: "));
-	contacts[index].setDarkestSecret(take_input("Enter darkest secret: "));
+	contacts[index].setFirstName(getline("Enter first name: "));
+	contacts[index].setLastName(getline("Enter last name: "));
+	contacts[index].setNickname(getline("Enter nickname: "));
+	contacts[index].setPhoneNumber(getline("Enter phone number: "));
+	contacts[index].setDarkestSecret(getline("Enter darkest secret: "));
 	index = (index + 1) % 8;
 	if (count < 8)
 		count++;

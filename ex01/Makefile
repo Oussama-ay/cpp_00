@@ -2,9 +2,8 @@ NAME = phonebook
 CC = g++
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 SRC =	PhoneBook.cpp \
-		PhoneBook_utils.cpp \
-		getters_setters.cpp \
-		utils.cpp
+		Contact.cpp \
+		main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

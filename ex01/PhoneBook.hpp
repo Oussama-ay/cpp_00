@@ -1,14 +1,10 @@
-#ifndef PHONEBOOK   
-#define PHONEBOOK
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
 
+#include "Contact.hpp"
 #include <iostream>
 #include <iomanip>
-#include <string>
-#include <ctype.h>
 #include <stdlib.h>
-#include <cstdio>
-#include <limits>
-#include <unistd.h>
 
 // clors macros
 #define RED "\033[31m"
@@ -18,28 +14,6 @@
 #define MAGENTA "\033[35m"
 #define CYAN "\033[36m"
 #define RESET "\033[0m"
-
-class Contact
-{
-private:
-	std::string	firstName;
-	std::string	lastName;
-	std::string	nickname;
-	std::string	phoneNumber;
-	std::string	darkestSecret;
-
-public:
-	void		setFirstName(std::string firstName);
-	void		setLastName(std::string lastName);
-	void		setNickname(std::string nickname);
-	void		setPhoneNumber(std::string phoneNumber);
-	void		setDarkestSecret(std::string darkestSecret);
-	std::string	getFirstName();
-	std::string	getLastName();
-	std::string	getNickname();
-	std::string	getPhoneNumber();
-	std::string	getDarkestSecret();
-};
 
 class PhoneBook
 {
@@ -57,10 +31,9 @@ public:
 };
 
 // Utility functions
-std::string	getline(std::string prompt);
-std::string	str_tolower(std::string str);
 int			take_index(void);
 void		press_enter(void);
 std::string	reform_string(std::string str);
+std::string	getline(std::string prompt);
 
 #endif

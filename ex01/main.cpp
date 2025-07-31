@@ -1,9 +1,25 @@
 #include "PhoneBook.hpp"
 
-static void	str_tolower(std::string &str)
+bool error = false;
+
+std::string	getline()
 {
-	for (size_t i = 0; i < str.length(); i++)
-		str[i] = std::tolower(str[i]);
+	std::string	input;
+
+	if (!error)
+		std::getline(std::cin, input);
+	if (!error && std::cin.eof())
+	{
+		cout(RED "\nProgram terminated by EOF\n" RESET);
+		error = true;
+	}
+	return (input);
+}
+
+void	cout(std::string str)
+{
+	if (!error)
+		std::cout << str;
 }
 
 int	main(void)
@@ -14,16 +30,20 @@ int	main(void)
 	system("clear");
 	while (true)
 	{
-		command = getline(YELLOW "Please enter a command (ADD, SEARCH, EXIT): " RESET);
-		str_tolower(command);
+		cout(YELLOW "Please enter a command (ADD, SEARCH, EXIT): " RESET);
+		command = getline();
 		system("clear");
-		if (command == "add")
+		if (command == "ADD")
 			phoneBook.addContact();
-		else if (command == "search")
+		else if (command == "SEARCH")
 			phoneBook.displayAllContacts();
-		else if (command == "exit")
+		else if (command == "EXIT")
+			break ;
+		else
+			cout(RED "Invalid command. Please try again.\n" RESET);
+		if (error)
 			break ;
 	}
-	std::cout << MAGENTA "Exiting the program." RESET << std::endl;
+	std::cout << MAGENTA "Exiting the program.\n" RESET;
 	return (0);
 }

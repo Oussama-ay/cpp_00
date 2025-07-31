@@ -1,18 +1,35 @@
 #include "PhoneBook.hpp"
 
+extern bool error;
+bool	is_valide(std::string &str);
+
 // PhoneBook class methods
 
 void	PhoneBook::addContact(void)
 {
-	contacts[index].setFirstName(getline("Enter first name: "));
-	contacts[index].setLastName(getline("Enter last name: "));
-	contacts[index].setNickname(getline("Enter nickname: "));
-	contacts[index].setPhoneNumber(getline("Enter phone number: "));
-	contacts[index].setDarkestSecret(getline("Enter darkest secret: "));
+	std::string	nbr;
+	bool		flag;
+
+	cout("Enter first name: ");
+	contacts[index].setFirstName(getline());
+	cout("Enter last name: ");
+	contacts[index].setLastName(getline());
+	cout("Enter nickname: ");
+	contacts[index].setNickname(getline());
+	do 
+	{
+		cout("Enter phone number: ");
+		nbr = getline();
+		flag = is_valide(nbr);
+		if (!flag)
+			cout(RED "Invalid number.\n" RESET);
+	} while (!flag);
+	contacts[index].setPhoneNumber(nbr);
+	cout("Enter darkest secret: ");
+	contacts[index].setDarkestSecret(getline());
 	index = (index + 1) % 8;
 	if (count < 8)
 		count++;
-	press_enter();
 }
 
 void	PhoneBook::searchContact(void)
@@ -22,35 +39,35 @@ void	PhoneBook::searchContact(void)
 	index = take_index();
 	if (index < 0 || index >= count)
 	{
-		std::cout << RED "Invalid index." RESET << std::endl;
-		press_enter();
+		cout(RED "Invalid index.\n" RESET);
 		return ;
 	}
 	displayContact(index);
-	press_enter();
 }
 
 void	PhoneBook::displayContact(int index)
 {
-	std::cout	<< GREEN "\nFirst name: " << contacts[index].getFirstName() << "\n"
-				<< "Last name: " << contacts[index].getLastName() << "\n"
-				<< "Nickname: " << contacts[index].getNickname() << "\n"
-				<< "Phone number: " << contacts[index].getPhoneNumber() << "\n"
-				<< "Darkest secret: " << contacts[index].getDarkestSecret() << "\n\n" RESET;
+	if (!error)
+	{	
+		std::cout	<< GREEN "\nFirst name: " << contacts[index].getFirstName() << "\n"
+					<< "Last name: " << contacts[index].getLastName() << "\n"
+					<< "Nickname: " << contacts[index].getNickname() << "\n"
+					<< "Phone number: " << contacts[index].getPhoneNumber() << "\n"
+					<< "Darkest secret: " << contacts[index].getDarkestSecret() << "\n\n" RESET;
+	}
 }
 
 void	PhoneBook::displayAllContacts(void)
 {
 	if (count == 0)
 	{
-		std::cout << RED "No contacts to display." RESET << std::endl;
-		press_enter();
+		cout(RED "No contacts to display.\n" RESET);
 		return ;
 	}
-	std::cout	<< "+----------+----------+----------+----------+\n"
-				<< "|     Index|First Name| Last Name|  Nickname|\n"
-				<< "+----------+----------+----------+----------+" << std::endl;
-	for (int i = 0; i < count; i++)
+	cout("+----------+----------+----------+----------+\n"
+		 "|     Index|First Name| Last Name|  Nickname|\n"
+		 "+----------+----------+----------+----------+\n");
+	for (int i = 0; !error && i < count; i++)
 	{
 		std::cout << "|" << std::setw(10) << i << "|"
 				  << std::setw(10) << reform_string(contacts[i].getFirstName()) << "|"
@@ -58,31 +75,54 @@ void	PhoneBook::displayAllContacts(void)
 				  << std::setw(10) << reform_string(contacts[i].getNickname()) << "|"
 				  << std::endl;
 	}
-	std::cout << "+----------+----------+----------+----------+" << std::endl;
+	cout("+----------+----------+----------+----------+\n");
 	searchContact();
 }
 
 // Utility functions
 
-int	take_index(void)
+bool is_valide(std::string &str)
 {
-	int	index;
-
-	std::cout << MAGENTA "Enter index of contact to display: " RESET;
-	std::cin >> index;
-	if (std::cin.eof())
-	{
-		std::cout << RED "\nProgram terminated by EOF" RESET << std::endl;
-		exit(0);
-	}
-	return (index);
+	int i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	if (str[i])
+		return (false);
+	return (true);
 }
 
-void	press_enter(void)
+int	my_stoi(std::string str)
 {
-	std::cout << "Press Enter to continue...";
-	getline("");
-	std::cout << std::endl;
+	int	result = 0, i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+')
+		i++;
+	while (str[i] == '0')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	if (str[i])
+		return (-1);
+	return (result);
+}
+
+int	take_index(void)
+{
+	int			index;
+	std::string input;
+
+	cout(MAGENTA "Enter index of contact to display: " RESET);
+	input = getline();
+	index = my_stoi(input);
+	return (index);
 }
 
 std::string	reform_string(std::string str)
@@ -90,18 +130,4 @@ std::string	reform_string(std::string str)
 	if (str.length() > 10)
 		return (str.substr(0, 9) + ".");
 	return (str);
-}
-
-std::string	getline(std::string prompt)
-{
-	std::string	input;
-
-	std::cout << prompt;
-	std::getline(std::cin, input);
-	if (std::cin.eof())
-	{
-		std::cout << RED "\nProgram terminated by EOF" RESET << std::endl;
-		exit(0);
-	}
-	return (input);
 }

@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <stdlib.h>
 
-// clors macros
+// colors macros
 #define RED "\033[31m"
 #define GREEN "\033[32m"
 #define YELLOW "\033[33m"
@@ -32,8 +32,8 @@ public:
 
 // Utility functions
 int			take_index(void);
-void		press_enter(void);
 std::string	reform_string(std::string str);
-std::string	getline(std::string prompt);
+std::string	getline();
+void		cout(std::string str);
 
 #endif

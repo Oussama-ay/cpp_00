@@ -1,10 +1,11 @@
+#include <iostream>
+#include <ctime>
 #include "Account.hpp"
-#include <bits/stdc++.h>
 
-int Account::_nbAccounts;
+int	Account::_nbAccounts;
 int	Account::_totalAmount;
-int Account::_totalNbDeposits;
-int Account::_totalNbWithdrawals;
+int	Account::_totalNbDeposits;
+int	Account::_totalNbWithdrawals;
 
 // static functions
 
@@ -38,10 +39,13 @@ void	Account::displayAccountsInfos( void )
 
 void	Account::_displayTimestamp( void )
 {
-	std::time_t t = std::time(0);
-	std::tm* tm = std::localtime(&t);
-	char buffer[20];
-	std::strftime(buffer, sizeof(buffer), "%Y%m%d_%H%M%S", tm);
+	char		buffer[80];
+	std::time_t	sec;
+	std::tm		*timeinfo;
+
+	std::time(&sec);
+	timeinfo = std::localtime(&sec);
+	std::strftime(buffer, sizeof(buffer), "%Y%m%d_%H%M%S", timeinfo);
 	std::cout << "[" << buffer << "] ";
 }
 
@@ -90,16 +94,13 @@ bool	Account::makeWithdrawal( int withdrawal )
 		std::cout	<< ";withdrawal:refused" << std::endl;
 		return (false);
 	}
-	else
-	{
-		std::cout	<< ";withdrawal:" << withdrawal;
-		_amount -= withdrawal;
-		_totalAmount -= withdrawal;
-		_nbWithdrawals++;
-		_totalNbWithdrawals++;
-		std::cout	<< ";amount:" << _amount << ";nb_withdrawals:"
-					<< _nbWithdrawals << std::endl;
-	}
+	std::cout	<< ";withdrawal:" << withdrawal;
+	_amount -= withdrawal;
+	_totalAmount -= withdrawal;
+	_nbWithdrawals++;
+	_totalNbWithdrawals++;
+	std::cout	<< ";amount:" << _amount << ";nb_withdrawals:"
+				<< _nbWithdrawals << std::endl;
 	return (true);
 }
 

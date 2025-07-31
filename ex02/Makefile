@@ -1,14 +1,17 @@
 NAME = account
-CC = g++
-CPPFLAGS = -Wall -Wextra -Werror -std=c++98
-SRC =	Account.cpp tests.cpp 
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+SRC =	Account.cpp tests.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CPPFLAGS) -o $(NAME) $(OBJ)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)

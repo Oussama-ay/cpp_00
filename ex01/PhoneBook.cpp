@@ -77,6 +77,8 @@ int	my_stoi(std::string str)
 	int	result = 0, i = 0;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
+	if (!str[i])
+		return (-1);
 	if (str[i] == '+')
 		i++;
 	while (str[i] == '0')
@@ -118,7 +120,7 @@ std::string	take_input()
 		res = getline();
 		flag = is_empty(res);
 		if (flag)
-			cout(RED "Invalid input.\n" RESET);
+			cout(RED "Invalid input, Retry: " RESET);
 	}	while (flag && !error);
 	return (res);
 }

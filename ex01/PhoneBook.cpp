@@ -1,32 +1,23 @@
 #include "PhoneBook.hpp"
 
 extern bool error;
-bool	is_valide(std::string &str);
+bool	is_empty(std::string &str);
+std::string	take_input();
 
 // PhoneBook class methods
 
 void	PhoneBook::addContact(void)
 {
-	std::string	nbr;
-	bool		flag;
-
 	cout("Enter first name: ");
-	contacts[index].setFirstName(getline());
+	contacts[index].setFirstName(take_input());
 	cout("Enter last name: ");
-	contacts[index].setLastName(getline());
+	contacts[index].setLastName(take_input());
 	cout("Enter nickname: ");
-	contacts[index].setNickname(getline());
-	do 
-	{
-		cout("Enter phone number: ");
-		nbr = getline();
-		flag = is_valide(nbr);
-		if (!flag)
-			cout(RED "Invalid number.\n" RESET);
-	} while (!flag);
-	contacts[index].setPhoneNumber(nbr);
+	contacts[index].setNickname(take_input());
+	cout("Enter phone number: ");
+	contacts[index].setPhoneNumber(take_input());
 	cout("Enter darkest secret: ");
-	contacts[index].setDarkestSecret(getline());
+	contacts[index].setDarkestSecret(take_input());
 	index = (index + 1) % 8;
 	if (count < 8)
 		count++;
@@ -81,20 +72,6 @@ void	PhoneBook::displayAllContacts(void)
 
 // Utility functions
 
-bool is_valide(std::string &str)
-{
-	int i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-		i++;
-	if (str[i])
-		return (false);
-	return (true);
-}
-
 int	my_stoi(std::string str)
 {
 	int	result = 0, i = 0;
@@ -130,4 +107,28 @@ std::string	reform_string(std::string str)
 	if (str.length() > 10)
 		return (str.substr(0, 9) + ".");
 	return (str);
+}
+
+std::string	take_input()
+{
+	std::string	res;
+	bool		flag;
+	do
+	{
+		res = getline();
+		flag = is_empty(res);
+		if (flag)
+			cout(RED "Invalid input.\n" RESET);
+	}	while (flag && !error);
+	return (res);
+}
+
+bool	is_empty(std::string &str)
+{
+	int i = 0;
+	while (str[i] && std::isspace(str[i]))
+		i++;
+	if (str[i])
+		return (false);
+	return (true);
 }

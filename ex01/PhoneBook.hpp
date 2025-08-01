@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <stdlib.h>
+#include <ctype.h>
 
 // colors macros
 #define RED "\033[31m"

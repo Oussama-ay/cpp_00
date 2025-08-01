@@ -22,12 +22,12 @@ private:
 	Contact	contacts[8];
 	int		index;
 	int		count;
+	void	searchContact();
+	void	displayContact(int index);
 
 public:
 	PhoneBook() : index(0), count(0) {}
 	void	addContact();
-	void	searchContact();
-	void	displayContact(int index);
 	void	displayAllContacts();
 };
 

@@ -2,22 +2,22 @@
 
 extern bool error;
 bool	is_empty(std::string &str);
-std::string	take_input();
+std::string	take_input(bool is_nbr);
 
 // PhoneBook class methods
 
 void	PhoneBook::addContact(void)
 {
 	cout("Enter first name: ");
-	contacts[index].setFirstName(take_input());
+	contacts[index].setFirstName(take_input(false));
 	cout("Enter last name: ");
-	contacts[index].setLastName(take_input());
+	contacts[index].setLastName(take_input(false));
 	cout("Enter nickname: ");
-	contacts[index].setNickname(take_input());
+	contacts[index].setNickname(take_input(false));
 	cout("Enter phone number: ");
-	contacts[index].setPhoneNumber(take_input());
+	contacts[index].setPhoneNumber(take_input(true));
 	cout("Enter darkest secret: ");
-	contacts[index].setDarkestSecret(take_input());
+	contacts[index].setDarkestSecret(take_input(false));
 	index = (index + 1) % 8;
 	if (count < 8)
 		count++;
@@ -111,17 +111,23 @@ std::string	reform_string(std::string str)
 	return (str);
 }
 
-std::string	take_input()
+std::string	take_input(bool is_nbr)
 {
 	std::string	res;
+	std::string	tmp;
+	int			nbr;
 	bool		flag;
+
+	nbr = 0;
 	do
 	{
 		res = getline();
+		if (is_nbr)
+			nbr = my_stoi(res);
 		flag = is_empty(res);
-		if (flag)
+		if (flag || nbr == -1)
 			cout(RED "Invalid input, Retry: " RESET);
-	}	while (flag && !error);
+	}	while ((flag || nbr == -1) && !error);
 	return (res);
 }
 

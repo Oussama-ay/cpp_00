@@ -126,3 +126,116 @@
     | Display 2 | Updated balances and deposit counters |
     | Withdrawal loop | Attempt to withdraw from each account |
     | Display 3 | Final balances and withdrawal counters |
+
+# **IOSTREAM :**
+`<iostream>` is a **standard C++ header** used for **input and output operations**. It provides access to stream objects like `cin`, `cout`, `cerr`, and `clog`, enabling interaction with the keyboard and screen.
+
+- Handles **stream-based** I/O — treats data as a flow of bytes.
+- Abstracts devices like **console**, **files**, etc., using **stream classes**.
+
+---
+
+## **Main Stream Types :**
+
+| Type | Class | Description |
+| --- | --- | --- |
+| Input | `std::istream` | From device to program (e.g. `cin`) |
+| Output | `std::ostream` | From program to device (e.g. `cout`) |
+
+---
+
+## **Standard Stream Objects :**
+
+- `std::cin` → Standard input (keyboard)
+- `std::cout` → Standard output (console)
+- `std::cerr` → Standard error (unbuffered)
+- `std::clog` → Standard error log (buffered)
+
+---
+
+## **Stream Operators :**
+
+- `<<` → **Insertion operator** (used with `cout`)
+    - Sends data *into* the output stream
+    - Example: `std::cout << "Hello";`
+- `>>` → **Extraction operator** (used with `cin`)
+    - Extracts data *from* the input stream
+    - Example: `std::cin >> age;`
+
+Both operators are **overloaded** for built-in types and can be overloaded for user-defined types.
+
+---
+
+## **Chaining Operators :**
+
+Because both `<<` and `>>` return the stream object, we can chain operations:
+
+```cpp
+std::cout << "Name: " << name << ", Age: " << age << std::endl;
+std::cin >> x >> y;
+
+```
+
+---
+
+## **endl vs `\n` :**
+
+| Usage | Description |
+| --- | --- |
+| `std::endl` | Inserts newline **and flushes buffer** |
+| `\n` | Inserts newline only |
+- Use `"\n"` for better performance unless flushing is required.
+
+---
+
+## **Stream State Functions :**
+
+| Function | Meaning |
+| --- | --- |
+| `.fail()` | Last input failed (bad format, etc.) |
+| `.eof()` | Reached end of input stream |
+| `.good()` | Stream is OK and ready to use |
+| `.clear()` | Clears error state of the stream |
+
+---
+
+## **Custom Input/Output for Classes :**
+
+You can define how your own class is printed or read by overloading `<<` and `>>`.
+
+```cpp
+class Point {
+public:
+    int x, y;
+};
+
+std::ostream& operator<<(std::ostream& os, const Point& p) {
+    os << "(" << p.x << ", " << p.y << ")";
+    return os;
+}
+
+```
+
+---
+
+## **How it All Connects :**
+
+- `cin`, `cout`, etc. are **objects** of stream classes (`istream`, `ostream`)
+- `<<` and `>>` are overloaded to work with **multiple data types**
+- Streams simplify input/output and work consistently across:
+    - **Console**
+    - **Files** (via `fstream`)
+    - **Strings** (via `stringstream`)
+
+---
+
+## **Summary Table :**
+
+| Component | Purpose |
+| --- | --- |
+| `#include <iostream>` | Access I/O stream classes and objects |
+| `std::cin` | Input stream from keyboard |
+| `std::cout` | Output stream to console |
+| `<<` operator | Send data into a stream |
+| `>>` operator | Extract data from a stream |
+| `std::endl` | Newline + flush stream |

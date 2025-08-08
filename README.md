@@ -10,17 +10,17 @@
 - **Encapsulation**
     - Bundles data and functions together in a class
     - Hides internal details from outside code using access specifiers (`private`, `public`)
-    - ✅ Protects and organizes data
+    - Protects and organizes data
 - **Abstraction**
     - Shows only essential features and hides complexity
-    - ✅ Makes code cleaner and easier to use
+    - Makes code cleaner and easier to use
 - **Inheritance**
     - Allows one class (child) to inherit properties/methods from another (parent)
-    - ✅ Promotes code reuse and hierarchy
+    - Promotes code reuse and hierarchy
 - **Polymorphism**
     - Means “many forms”: the same function behaves differently for different objects
     - Achieved using **function overloading** or **virtual functions**
-    - ✅ Makes code flexible and extensible
+    - Makes code flexible and extensible
 
 # **CPP 00 :**
 

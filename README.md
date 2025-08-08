@@ -22,7 +22,7 @@
     - Achieved using **function overloading** or **virtual functions**
     - ✅ Makes code flexible and extensible
 
-# **CPP 01 :**
+# **CPP 00 :**
 
 - **Namespace :**
     1. Prevent name conflicts between functions, variables, etc.
